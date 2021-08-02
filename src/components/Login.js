@@ -1,12 +1,26 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/reducers/userSlice";
 import "../styles/login.css";
 function Login() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      login({
+        name: name,
+        email: email,
+        password: password,
+        loggeIn: true,
+      })
+    );
+  };
   return (
     <div className="login">
-      <form className="login__form">
+      <form className="login__form" onSubmit={(e) => handleSubmit(e)}>
         <h1>Login Here</h1>
         <input
           required
